@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoodMatch — Find Your Film</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-inner">
+            <div class="logo">
+                <span class="logo-icon">🎬</span>
+                <span class="logo-text">MoodMatch</span>
+            </div>
+            <div class="nav-actions">
+                <!-- Theme Toggle -->
+                <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
+                    <i class="fas fa-sun" id="themeIcon"></i>
+                    <span id="themeLabel">Dark</span>
+                </button>
+                <!-- Watchlist -->
+                <button id="watchlistBtn" class="watchlist-btn">
+                    <i class="fas fa-heart"></i>
+                    <span>Watchlist</span>
+                    <span id="watchlistCount" class="badge hidden">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="container">
+
+        <!-- SCREEN 1: Mood & Time Selection -->
+        <section id="selection-screen">
+            <div class="selection-hero">
+                <p class="selection-eyebrow">Personalised for you</p>
+                <h1 class="selection-title">What's your<br><span class="accent-text">mood tonight?</span></h1>
+                <p class="selection-sub">Pick your vibe and we'll find the perfect film in seconds.</p>
+            </div>
+
+            <form id="recommendation-form">
+                <div class="form-grid">
+                    <!-- Mood Cards -->
+                    <div class="form-group">
+                        <label>I'm feeling...</label>
+                        <div class="mood-grid">
+                            <label class="mood-card" data-value="happy">
+                                <input type="radio" name="mood" value="happy">
+                                <span class="mood-emoji">😄</span>
+                                <span class="mood-label">Happy</span>
+                            </label>
+                            <label class="mood-card" data-value="sad">
+                                <input type="radio" name="mood" value="sad">
+                                <span class="mood-emoji">😢</span>
+                                <span class="mood-label">Emotional</span>
+                            </label>
+                            <label class="mood-card" data-value="excited">
+                                <input type="radio" name="mood" value="excited">
+                                <span class="mood-emoji">⚡</span>
+                                <span class="mood-label">Excited</span>
+                            </label>
+                            <label class="mood-card" data-value="scared">
+                                <input type="radio" name="mood" value="scared">
+                                <span class="mood-emoji">👻</span>
+                                <span class="mood-label">Thrilled</span>
+                            </label>
+                            <label class="mood-card" data-value="curious">
+                                <input type="radio" name="mood" value="curious">
+                                <span class="mood-emoji">🚀</span>
+                                <span class="mood-label">Curious</span>
+                            </label>
+                            <label class="mood-card" data-value="romantic">
+                                <input type="radio" name="mood" value="romantic">
+                                <span class="mood-emoji">❤️</span>
+                                <span class="mood-label">Romantic</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Time Selection -->
+                    <div class="form-group">
+                        <label>I have...</label>
+                        <div class="time-options">
+                            <label class="time-card">
+                                <input type="radio" name="time" value="short">
+                                <i class="fas fa-clock"></i>
+                                <span class="time-main">Quick Watch</span>
+                                <span class="time-sub">Under 90 mins</span>
+                            </label>
+                            <label class="time-card">
+                                <input type="radio" name="time" value="medium">
+                                <i class="fas fa-film"></i>
+                                <span class="time-main">Standard</span>
+                                <span class="time-sub">90 – 120 mins</span>
+                            </label>
+                            <label class="time-card">
+                                <input type="radio" name="time" value="long">
+                                <i class="fas fa-couch"></i>
+                                <span class="time-main">Full Evening</span>
+                                <span class="time-sub">120+ mins</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="cta-btn" id="findBtn">
+                    <span>Find My Film</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+        </section>
+
+        <!-- SCREEN 2: Loader -->
+        <div id="loader" class="hidden">
+            <div class="film-loader">
+                <div class="reel"></div>
+            </div>
+            <p class="loader-text">Finding your perfect film<span class="dots"></span></p>
+        </div>
+
+        <!-- SCREEN 3: Result -->
+        <section id="result-screen" class="hidden">
+            <div class="result-header">
+                <span class="result-tag">Recommended for you</span>
+            </div>
+
+            <div class="movie-card" id="movieCard">
+                <!-- Poster -->
+                <div class="poster-col">
+                    <img id="movie-poster" src="" alt="Movie Poster">
+                    <div class="poster-overlay"></div>
+                </div>
+
+                <!-- Info -->
+                <div class="info-col">
+                    <div class="genre-tags" id="genre-tags"></div>
+                    <h2 id="movie-title">Movie Title</h2>
+                    
+                    <div class="meta-row">
+                        <span class="meta-pill year" id="movie-year"></span>
+                        <span class="meta-pill rating">
+                            <i class="fas fa-star"></i>
+                            <span id="movie-rating">0</span>
+                        </span>
+                        <span class="meta-pill runtime" id="movie-runtime"></span>
+                    </div>
+
+                    <p id="movie-overview">Description loading...</p>
+
+                    <!-- Watch Providers -->
+                    <div id="providers-section" class="providers-section hidden">
+                        <p class="providers-label"><i class="fas fa-tv"></i> Available on</p>
+                        <div class="providers-row">
+                            <div id="providers-list"></div>
+                            <a id="justwatch-link" href="#" target="_blank" rel="noopener" class="justwatch-btn">
+                                All Options <i class="fas fa-external-link-alt"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Not Available -->
+                    <div id="no-providers" class="no-providers hidden">
+                        <i class="fas fa-search"></i>
+                        <span>Search on <a href="#" id="tmdb-search-link" target="_blank" rel="noopener">JustWatch</a></span>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="action-row">
+                        <button id="saveBtn" class="action-btn save-btn">
+                            <i class="fas fa-heart"></i> Save
+                        </button>
+                        <button id="skipBtn" class="action-btn skip-btn">
+                            <i class="fas fa-shuffle"></i> Next Pick
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Watchlist Modal -->
+    <div id="watchlist-modal" class="modal hidden">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-heart"></i> My Watchlist</h2>
+                <button class="close-modal icon-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="watchlist-container"></div>
+            <p id="empty-msg" class="empty-msg">
+                <i class="fas fa-film"></i><br>
+                No movies saved yet.<br>
+                <small>Hit Save on any recommendation!</small>
+            </p>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
